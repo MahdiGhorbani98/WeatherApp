@@ -8,5 +8,7 @@ const FetchCityWeather = (city) => {
 };
 
 export const WeatherData = (city) => {
-  return useQuery(["WeatherData", city], () => FetchCityWeather(city));
+  return useQuery(["WeatherData", city], () => FetchCityWeather(city), {
+    staleTime: 30000,
+  });
 };

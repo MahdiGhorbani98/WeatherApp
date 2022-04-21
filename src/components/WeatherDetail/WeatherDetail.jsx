@@ -98,7 +98,7 @@ const WeatherDetail = ({ cityName }) => {
           >
             {data?.data.sys.country}
           </sup>
-          <p
+          <div
             css={css`
               margin-top: 20px;
               display: flex;
@@ -140,7 +140,7 @@ const WeatherDetail = ({ cityName }) => {
                 &deg;C
               </sup>
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </div>
