@@ -27,7 +27,7 @@ test("show result when click searchBtn", async () => {
   userEvent.click(searchBtn);
 
   // check display result on screen
-  const temperature = await screen.findByText(/temperature:/i, {
+  const temperature = await screen.findByText(/temp:/i, {
     exact: false,
   });
   expect(temperature).toBeInTheDocument();

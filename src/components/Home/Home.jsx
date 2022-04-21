@@ -41,7 +41,7 @@ const Home = () => {
             font-size: 20px;
             padding: 0 20px;
             color: #53a3ce;
-            border-radius: 7px 0px 0px 7px;
+            border-radius: 3px 0px 0px 3px;
             border: 2.5px solid skyblue;
             outline: none;
             &:focus {
@@ -49,6 +49,9 @@ const Home = () => {
             }
             ::placeholder {
               color: #63a9cfb8;
+            }
+            @media (max-width: 425px) {
+              width: 100%;
             }
           `}
           type="text"
@@ -63,7 +66,7 @@ const Home = () => {
             border: 0;
             height: 100%;
             background-color: #53a3ce;
-            border-radius: 0px 7px 7px 0px;
+            border-radius: 0px 3px 3px 0px;
           `}
         >
           <img
