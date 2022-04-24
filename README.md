@@ -5,6 +5,14 @@ The Weather App is a Web app that lets you enter a city into the input and see w
 
 Watch the project [live](https://benevolent-peony-08aae5.netlify.app/)
 
+## Installation
+
+```bash
+npm install 
+```
+```bash
+npm start 
+```
 
 ## Usage
 ![weather](https://user-images.githubusercontent.com/67688553/165000082-8bc437dc-4c05-4d64-b81b-e00fb7102355.gif)
