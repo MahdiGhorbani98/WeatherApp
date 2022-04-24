@@ -1,6 +1,6 @@
 # Weather App
 
-The Weather App is a Web app that lets you enter a city into the input and see weather information about it.
+The Weather App is a Web app that lets you enter a city into the input and see weather information about it. <br/>
 🎯 In the near future, I hope to implement autocomplete for city names.
 
 Watch the project [live](https://benevolent-peony-08aae5.netlify.app/)
