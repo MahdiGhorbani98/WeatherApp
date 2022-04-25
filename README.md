@@ -14,7 +14,7 @@ npm install
 npm start 
 ```
 
-## Usage
+## How to use
 ![weather](https://user-images.githubusercontent.com/67688553/165000082-8bc437dc-4c05-4d64-b81b-e00fb7102355.gif)
 
 Enter a city and press Enter key or click the search button 
