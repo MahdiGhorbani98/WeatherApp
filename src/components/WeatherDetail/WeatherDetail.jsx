@@ -36,6 +36,7 @@ const WeatherDetail = ({ cityName }) => {
       </h3>
     );
   }
+  const mainData = data.data;
 
   return (
     <div>
@@ -60,7 +61,7 @@ const WeatherDetail = ({ cityName }) => {
       >
         <div>
           <img
-            src={`https://openweathermap.org/img/wn/${data?.data.weather[0].icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${mainData.weather[0].icon}@2x.png`}
             alt=""
           />
           <p
@@ -72,7 +73,7 @@ const WeatherDetail = ({ cityName }) => {
               margin-bottom: 30px;
             `}
           >
-            {data?.data.weather[0].description}
+            {mainData.weather[0].description}
           </p>
         </div>
         <div>
@@ -83,7 +84,7 @@ const WeatherDetail = ({ cityName }) => {
               font-weight: 600;
             `}
           >
-            {data?.data.name}
+            {mainData.name}
           </span>
           <sup
             css={css`
@@ -96,7 +97,7 @@ const WeatherDetail = ({ cityName }) => {
               border-radius: 3px;
             `}
           >
-            {data?.data.sys.country}
+            {mainData.sys.country}
           </sup>
           <div
             css={css`
@@ -126,7 +127,7 @@ const WeatherDetail = ({ cityName }) => {
                   font-weight: 600;
                 `}
               >
-                {Math.round(data?.data.main.temp) - 273}
+                {Math.round(mainData.main.temp) - 273}
               </span>
               <sup
                 css={css`
@@ -145,6 +146,7 @@ const WeatherDetail = ({ cityName }) => {
       </div>
     </div>
   );
+  // }
 };
 
 export default WeatherDetail;
