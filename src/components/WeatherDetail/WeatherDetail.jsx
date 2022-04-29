@@ -1,53 +1,49 @@
 /** @jsxImportSource @emotion/react */
 import { WeatherData } from "../../api/WeatherData";
-import {
-  Heading3,
-  Container,
-  Paragraph,
-  Span,
-  Sup,
-  TempSpan,
-  CelciusSup,
-  TempContainer,
-  CelciusContainer,
-} from "./WeatherDetailStyle";
+import * as Styled from "./WeatherDetail.styled";
 
 const WeatherDetail = ({ cityName }) => {
   const { data, isLoading, isError, error } = WeatherData(cityName);
 
   if (isLoading) {
-    return <Heading3 bgColor="#134874">Loading...</Heading3>;
+    return <Styled.Heading3 bgColor="#134874">Loading...</Styled.Heading3>;
   }
 
   if (isError) {
-    return <Heading3 bgColor="#7e252b">Error: {error.message}</Heading3>;
+    return (
+      <Styled.Heading3 bgColor="#7e252b">
+        Error: {error.message}
+      </Styled.Heading3>
+    );
   }
 
   const mainData = data.data;
 
   return (
     <div>
-      <Container>
+      <Styled.Container>
         <div>
           <img
             src={`https://openweathermap.org/img/wn/${mainData.weather[0].icon}@2x.png`}
             alt=""
           />
-          <Paragraph>{mainData.weather[0].description}</Paragraph>
+          <Styled.Paragraph>{mainData.weather[0].description}</Styled.Paragraph>
         </div>
 
         <div>
-          <Span fontSize={35}>{mainData.name}</Span>
-          <Sup>{mainData.sys.country}</Sup>
-          <TempContainer>
-            <TempSpan>Temp:</TempSpan>
-            <CelciusContainer>
-              <Span fontSize={45}>{Math.round(mainData.main.temp) - 273}</Span>
-              <CelciusSup>&deg;C</CelciusSup>
-            </CelciusContainer>
-          </TempContainer>
+          <Styled.Span fontSize={35}>{mainData.name}</Styled.Span>
+          <Styled.Sup>{mainData.sys.country}</Styled.Sup>
+          <Styled.TempContainer>
+            <Styled.TempSpan>Temp:</Styled.TempSpan>
+            <Styled.CelciusContainer>
+              <Styled.Span fontSize={45}>
+                {Math.round(mainData.main.temp) - 273}
+              </Styled.Span>
+              <Styled.CelciusSup>&deg;C</Styled.CelciusSup>
+            </Styled.CelciusContainer>
+          </Styled.TempContainer>
         </div>
-      </Container>
+      </Styled.Container>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Container, InputContainer, Input, Button, Image } from "./HomeStyle";
+import * as Styled from "./HomeStyle.styled";
 import searchIcon from "../../icons/icons8-search.svg";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { useEffect, useState } from "react";
@@ -24,15 +24,15 @@ const Home = () => {
   });
 
   return (
-    <Container>
-      <InputContainer>
-        <Input id="cityInput" type="text" placeholder="Enter a City" />
-        <Button aria-label="search" onClick={handleClick}>
-          <Image src={searchIcon} alt="searchIcon" />
-        </Button>
-      </InputContainer>
+    <Styled.Container>
+      <Styled.InputContainer>
+        <Styled.Input id="cityInput" type="text" placeholder="Enter a City" />
+        <Styled.Button aria-label="search" onClick={handleClick}>
+          <Styled.Image src={searchIcon} alt="searchIcon" />
+        </Styled.Button>
+      </Styled.InputContainer>
       {cityName && <WeatherDetail cityName={cityName} />}
-    </Container>
+    </Styled.Container>
   );
 };
 
