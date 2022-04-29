@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { Container, InputContainer, Input, Button, Image } from "./HomeStyle";
 import searchIcon from "../../icons/icons8-search.svg";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { useEffect, useState } from "react";
@@ -24,62 +24,15 @@ const Home = () => {
   });
 
   return (
-    <>
-      <div
-        css={css`
-          margin: 40px;
-          height: 50px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `}
-      >
-        <input
-          id="cityInput"
-          css={css`
-            height: 100%;
-            font-size: 20px;
-            padding: 0 20px;
-            color: #53a3ce;
-            border-radius: 3px 0px 0px 3px;
-            border: 2.5px solid skyblue;
-            outline: none;
-            &:focus {
-              border: 2.5px solid #53a3ce;
-            }
-            ::placeholder {
-              color: #63a9cfb8;
-            }
-            @media (max-width: 425px) {
-              width: 100%;
-            }
-          `}
-          type="text"
-          placeholder="Enter a City"
-        />
-        <button
-          aria-label="search"
-          onClick={handleClick}
-          css={css`
-            cursor: pointer;
-            outline: 2.5px solid skyblue;
-            border: 0;
-            height: 100%;
-            background-color: #53a3ce;
-            border-radius: 0px 3px 3px 0px;
-          `}
-        >
-          <img
-            css={css`
-              padding: 0 10px;
-            `}
-            src={searchIcon}
-            alt="searchIcon"
-          />
-        </button>
-      </div>
+    <Container>
+      <InputContainer>
+        <Input id="cityInput" type="text" placeholder="Enter a City" />
+        <Button aria-label="search" onClick={handleClick}>
+          <Image src={searchIcon} alt="searchIcon" />
+        </Button>
+      </InputContainer>
       {cityName && <WeatherDetail cityName={cityName} />}
-    </>
+    </Container>
   );
 };
 
