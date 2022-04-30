@@ -4,6 +4,14 @@ export const Container = styled.div({
   textAlign: "center",
 });
 
+export const Heading3 = styled.h3(({ bgColor }) => ({
+  backgroundColor: bgColor,
+  color: "#fff",
+  padding: "10px 20px",
+  borderRadius: 30,
+  display: "inline-block",
+}));
+
 export const InputContainer = styled.div({
   margin: "40px",
   height: "50px",
