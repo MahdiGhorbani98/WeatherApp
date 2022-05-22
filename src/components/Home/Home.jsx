@@ -1,20 +1,27 @@
-import * as Styled from "./HomeStyle.styled";
-import searchIcon from "../../icons/icons8-search.svg";
-import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import WeatherDetail from "../WeatherDetail/WeatherDetail";
+import Loading from "../reusableComponents/Loading";
+import * as Styled from "./HomeStyle.styled";
+import Geolocation from "react-geolocation";
+import { BiSearchAlt2 } from "react-icons/bi";
+import { HiLocationMarker } from "react-icons/hi";
+import GetImageByKey from "../Images/GetImageByKey";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [city, setCity] = useState("");
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [loadingGPS, setLoadingGPS] = useState(false);
+  const [bgImg, seBgImg] = useState(null);
 
   const onChange = (event) => {
     setCity(event.target.value);
   };
 
   const onFetch = () => {
+    setLoadingGPS(false);
     setStatus("loading");
   };
 
@@ -28,6 +35,7 @@ const Home = () => {
         .then((res) => {
           setStatus("success");
           setData(res.data);
+          seBgImg(res.data.weather[0].description.replace(/ /g, "_"));
         })
         .catch((error) => {
           setStatus("error");
@@ -49,9 +57,9 @@ const Home = () => {
   });
 
   // determine what to render
-  const StatusToRender = () => {
+  const RenderBasedStatus = () => {
     if (status === "loading") {
-      return <Styled.Heading3 bgColor="#134874">Loading...</Styled.Heading3>;
+      return <Loading loadingText={"Loading..."} />;
     } else if (status === "error") {
       return (
         <Styled.Heading3 bgColor="#7e252b">Error: {error}</Styled.Heading3>
@@ -69,20 +77,72 @@ const Home = () => {
     }
   };
 
+  const GeoLocation = () => {
+    return (
+      <Geolocation
+        render={({ getCurrentPosition, position }) => (
+          <>
+            <Styled.Button
+              border_radius={"3px 0px 0px 3px"}
+              onClick={() => GetLetAndLon(getCurrentPosition, position)}
+            >
+              <HiLocationMarker
+                style={{ width: "30px", height: "30px", color: "#fff" }}
+              />
+            </Styled.Button>
+          </>
+        )}
+      />
+    );
+  };
+
+  const GetLetAndLon = (getCurrentPosition, pos) => {
+    setLoadingGPS(true);
+    RemoveInputValue();
+    getCurrentPosition();
+    GetCity(pos.coords.latitude.toFixed(6), pos.coords.longitude.toFixed(6));
+  };
+
+  const RemoveInputValue = () => {
+    document.getElementById("cityInput").value = "";
+  };
+
+  const GetCity = (lat, lon) => {
+    axios
+      .get(
+        `http://api.positionstack.com/v1/reverse?access_key=8aa5861642a46139eeddf39afe9f86e8&query=${lat},${lon}`
+      )
+      .then((res) => {
+        res.data.data[0].locality === null
+          ? setCity(res.data.data[0].county)
+          : setCity(res.data.data[0].locality);
+        onFetch();
+      });
+  };
+
   return (
-    <Styled.Container>
+    <Styled.Container bgImg={GetImageByKey(bgImg)}>
       <Styled.InputContainer>
+        <GeoLocation />
         <Styled.Input
           onChange={onChange}
           id="cityInput"
           type="text"
           placeholder="Enter a City"
         />
-        <Styled.Button aria-label="search" onClick={onFetch}>
-          <Styled.Image src={searchIcon} alt="searchIcon" />
+        <Styled.Button
+          border_radius={"0px 3px 3px 0px"}
+          aria-label="search"
+          onClick={onFetch}
+        >
+          <BiSearchAlt2
+            style={{ width: "30px", height: "30px", color: "#fff" }}
+          />
         </Styled.Button>
       </Styled.InputContainer>
-      <StatusToRender />
+
+      {loadingGPS ? <Loading loadingText={"Getting your city..."} /> : ""}
+      <RenderBasedStatus />
     </Styled.Container>
   );
 };

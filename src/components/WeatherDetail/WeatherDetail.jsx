@@ -1,9 +1,10 @@
 import * as Styled from "./WeatherDetail.styled";
+import rain from "../../assets/weather-background-Images/rain.jpg";
 
 const WeatherDetail = ({ description, name, country, temp, icon }) => {
   return (
     <div>
-      <Styled.Container>
+      <Styled.Container bgImg={rain}>
         <div>
           <img
             src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
