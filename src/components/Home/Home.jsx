@@ -81,16 +81,14 @@ const Home = () => {
     return (
       <Geolocation
         render={({ getCurrentPosition, position }) => (
-          <>
-            <Styled.Button
-              border_radius={"3px 0px 0px 3px"}
-              onClick={() => GetLetAndLon(getCurrentPosition, position)}
-            >
-              <HiLocationMarker
-                style={{ width: "30px", height: "30px", color: "#fff" }}
-              />
-            </Styled.Button>
-          </>
+          <Styled.Button
+            border_radius={"3px 0px 0px 3px"}
+            onClick={() => GetLetAndLon(getCurrentPosition, position)}
+          >
+            <HiLocationMarker
+              style={{ width: "30px", height: "30px", color: "#fff" }}
+            />
+          </Styled.Button>
         )}
       />
     );

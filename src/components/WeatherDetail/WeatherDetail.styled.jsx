@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div(() => ({
-  // backgroundImage: `url(${bgImg})`,
-  // backgroundSize: "cover",
   margin: "0 auto 40px auto",
   display: "flex",
   justifyContent: "space-around",
