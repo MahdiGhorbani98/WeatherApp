@@ -6,7 +6,8 @@ import * as Styled from "./HomeStyle.styled";
 import Geolocation from "react-geolocation";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { HiLocationMarker } from "react-icons/hi";
-import GetImageByKey from "../Images/GetImageByKey";
+import GetImageByKey from "../../utils/GetImageByKey";
+import ConvertDescription from "../../utils/ConvertDescription";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -35,7 +36,12 @@ const Home = () => {
         .then((res) => {
           setStatus("success");
           setData(res.data);
-          seBgImg(res.data.weather[0].description.replace(/ /g, "_"));
+          seBgImg(
+            ConvertDescription(
+              res.data.weather[0].description.replace(/ /g, "_")
+            )
+          );
+          // seBgImg(res.data.weather[0].description.replace(/ /g, "_"));
         })
         .catch((error) => {
           setStatus("error");
