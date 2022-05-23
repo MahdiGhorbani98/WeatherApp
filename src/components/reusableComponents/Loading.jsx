@@ -1,7 +1,7 @@
-import { Heading3 } from "../Home/HomeStyle.styled";
+import { Heading } from "../Home/HomeStyle.styled";
 
 const Loading = ({ loadingText }) => {
-  return <Heading3 bgColor="#df185a">{loadingText}</Heading3>;
+  return <Heading bgColor="#df185a">{loadingText}</Heading>;
 };
 
 export default Loading;

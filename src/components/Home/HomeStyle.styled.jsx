@@ -8,7 +8,7 @@ export const Container = styled.div(({ bgImg }) => ({
   textAlign: "center",
 }));
 
-export const Heading3 = styled.h3(({ bgColor }) => ({
+export const Heading = styled.h3(({ bgColor }) => ({
   backgroundColor: bgColor,
   color: "#fff",
   padding: "10px 20px",

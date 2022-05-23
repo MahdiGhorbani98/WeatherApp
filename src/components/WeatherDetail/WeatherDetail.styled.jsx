@@ -19,7 +19,7 @@ export const Container = styled.div(() => ({
   },
 }));
 
-export const TempContainer = styled.div({
+export const TemperatureContainer = styled.div({
   marginTop: 20,
   display: "flex",
   alignItems: "center",
@@ -36,13 +36,18 @@ export const Paragraph = styled.p({
   marginBottom: 30,
 });
 
-export const Span = styled.span(({ fontSize }) => ({
+export const CityName = styled.span(({ fontSize }) => ({
+  color: "#ffffff",
+  fontSize: fontSize,
+  fontWeight: 600,
+}));
+export const NumberTemp = styled.span(({ fontSize }) => ({
   color: "#ffffff",
   fontSize: fontSize,
   fontWeight: 600,
 }));
 
-export const Sup = styled.sup({
+export const Country = styled.sup({
   marginTop: 10,
   marginLeft: 4,
   fontSize: 14,
@@ -52,7 +57,7 @@ export const Sup = styled.sup({
   borderRadius: 3,
 });
 
-export const CelciusSup = styled.sup({
+export const Celcius = styled.sup({
   position: "absolute",
   bottom: 20,
   fontWeight: "bold",

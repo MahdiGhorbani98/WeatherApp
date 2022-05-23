@@ -67,9 +67,7 @@ const Home = () => {
     if (status === "loading") {
       return <Loading loadingText={"Loading..."} />;
     } else if (status === "error") {
-      return (
-        <Styled.Heading3 bgColor="#7e252b">Error: {error}</Styled.Heading3>
-      );
+      return <Styled.Heading bgColor="#7e252b">Error: {error}</Styled.Heading>;
     } else if (status === "success") {
       return (
         <WeatherDetail

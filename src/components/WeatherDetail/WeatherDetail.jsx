@@ -14,15 +14,17 @@ const WeatherDetail = ({ description, name, country, temp, icon }) => {
         </div>
 
         <div>
-          <Styled.Span fontSize={35}>{name}</Styled.Span>
-          <Styled.Sup>{country}</Styled.Sup>
-          <Styled.TempContainer>
+          <Styled.CityName fontSize={35}>{name}</Styled.CityName>
+          <Styled.Country>{country}</Styled.Country>
+          <Styled.TemperatureContainer>
             <Styled.TempSpan>Temp:</Styled.TempSpan>
             <Styled.CelciusContainer>
-              <Styled.Span fontSize={45}>{Math.round(temp) - 273}</Styled.Span>
-              <Styled.CelciusSup>&deg;C</Styled.CelciusSup>
+              <Styled.NumberTemp fontSize={45}>
+                {Math.round(temp) - 273}
+              </Styled.NumberTemp>
+              <Styled.Celcius>&deg;C</Styled.Celcius>
             </Styled.CelciusContainer>
-          </Styled.TempContainer>
+          </Styled.TemperatureContainer>
         </div>
       </Styled.Container>
     </div>
