@@ -31,7 +31,7 @@ const Home = () => {
     if (status === "loading") {
       axios
         .get(
-          `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=32e57dc8ede63539bdbaf94c916bc99e`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=32e57dc8ede63539bdbaf94c916bc99e`
         )
         .then((res) => {
           setStatus("success");
@@ -112,12 +112,14 @@ const Home = () => {
   const GetCity = (lat, lon) => {
     axios
       .get(
-        `http://api.positionstack.com/v1/reverse?access_key=8aa5861642a46139eeddf39afe9f86e8&query=${lat},${lon}`
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&zoom=18`
       )
       .then((res) => {
-        res.data.data[0].locality === null
-          ? setCity(res.data.data[0].county)
-          : setCity(res.data.data[0].locality);
+        console.log("lat lon: " + lat + " " + lon);
+        console.log("get city: " + res.data.address.city);
+        res.data.address.city !== null
+          ? setCity(res.data.address.city)
+          : setCity(res.data.address.county);
         onFetch();
       });
   };
