@@ -1,7 +1,7 @@
 # Weather App
 
 The Weather App is a web app in which you can search a city name and receive the city's weather information.<br/>
-🎯 In the near future, I hope to implement autocomplete for city names.
+🎯 In the near future, I want to implement autocomplete for city names.
 
 Watch the project [live](https://weatherapp-by-gps.netlify.app/)
 
