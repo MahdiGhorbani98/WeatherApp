@@ -18,6 +18,6 @@ npm start
 ![weather](https://user-images.githubusercontent.com/67688553/171233269-bd646971-2dc3-4f0f-88ed-01b2f17f05d5.gif)
 
 
-nter a city name then press Enter or click on the search button.
+Enter a city name then press Enter or click on the search button.<br/>
 You can also click on the location icon to see see your city's weather
 
