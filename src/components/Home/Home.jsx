@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import WeatherDetail from "../WeatherDetail/WeatherDetail";
-import Loading from "../reusableComponents/Loading";
-import * as Styled from "./HomeStyle.styled";
+import Loading from "../shared/Loading/Loading";
+import * as Styled from "./Home.styled";
 import Geolocation from "react-geolocation";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { HiLocationMarker } from "react-icons/hi";
@@ -41,7 +41,6 @@ const Home = () => {
               res.data.weather[0].description.replace(/ /g, "_")
             )
           );
-          // seBgImg(res.data.weather[0].description.replace(/ /g, "_"));
         })
         .catch((error) => {
           setStatus("error");
@@ -124,6 +123,20 @@ const Home = () => {
       });
   };
 
+  const SearchButton = () => {
+    return (
+      <Styled.Button
+        border_radius={"0px 3px 3px 0px"}
+        aria-label="search"
+        onClick={onFetch}
+      >
+        <BiSearchAlt2
+          style={{ width: "30px", height: "30px", color: "#fff" }}
+        />
+      </Styled.Button>
+    );
+  };
+
   return (
     <Styled.Container bgImg={GetImageByKey(bgImg)}>
       <Styled.InputContainer>
@@ -134,15 +147,7 @@ const Home = () => {
           type="text"
           placeholder="Enter a City"
         />
-        <Styled.Button
-          border_radius={"0px 3px 3px 0px"}
-          aria-label="search"
-          onClick={onFetch}
-        >
-          <BiSearchAlt2
-            style={{ width: "30px", height: "30px", color: "#fff" }}
-          />
-        </Styled.Button>
+        <SearchButton />
       </Styled.InputContainer>
 
       {loadingGPS ? <Loading loadingText={"Getting your city..."} /> : ""}

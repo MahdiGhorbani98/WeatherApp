@@ -1,16 +1,12 @@
 import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Home from "../Home";
+import Home from "./Home";
 
 test("check input inside Home", () => {
   render(<Home />);
   const inputCity = screen.getByPlaceholderText(/enter a city/i);
   expect(inputCity).toBeInTheDocument();
 });
-
-// beforeEach(() => {
-//   jest.mock("../../../__mocks__/axios");
-// });
 
 test("show result when click searchBtn", async () => {
   render(<Home />);
@@ -28,7 +24,4 @@ test("show result when click searchBtn", async () => {
     exact: false,
   });
   expect(loading).toBeInTheDocument();
-
-  // const nam = await screen.findByText(/london/i);
-  // expect(nam).toBeInTheDocument();
 });
