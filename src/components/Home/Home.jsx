@@ -1,70 +1,50 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import WeatherDetail from "../WeatherDetail/WeatherDetail";
-import Loading from "../shared/Loading/Loading";
+import { useEffect, useState, useRef } from "react";
+
 import * as Styled from "./Home.styled";
-import Geolocation from "react-geolocation";
-import { BiSearchAlt2 } from "react-icons/bi";
-import { HiLocationMarker } from "react-icons/hi";
+import Loading from "../shared/Loading/Loading";
+import WeatherDetail from "../WeatherDetail/WeatherDetail";
 import GetImageByKey from "../../utils/GetImageByKey";
-import ConvertDescription from "../../utils/ConvertDescription";
+import SearchButton from "../SearchButton/SearchButton";
+import GeoLocation from "../GeoLoacation/GeoLocation";
+import { GetCity } from "../../api/utils";
+import useCityRequest from "../../hooks/useCityRequest";
 
 const Home = () => {
-  const [data, setData] = useState([]);
-  const [city, setCity] = useState("");
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
   const [loadingGPS, setLoadingGPS] = useState(false);
-  const [bgImg, seBgImg] = useState(null);
+  const [status, setStatus] = useState("idle");
+  const [city, setCity] = useState("");
+  const inputRef = useRef(null);
+
+  const [data, bgImg, error] = useCityRequest(status, setStatus, city);
 
   const onChange = (event) => {
     setCity(event.target.value);
   };
 
-  const onFetch = () => {
+  const startRequest = () => {
     setLoadingGPS(false);
     setStatus("loading");
   };
 
   // send request based on status
-  useEffect(() => {
-    if (status === "loading") {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=32e57dc8ede63539bdbaf94c916bc99e`
-        )
-        .then((res) => {
-          setStatus("success");
-          setData(res.data);
-          seBgImg(
-            ConvertDescription(
-              res.data.weather[0].description.replace(/ /g, "_")
-            )
-          );
-        })
-        .catch((error) => {
-          setStatus("error");
-          setError(error.message);
-        });
-    }
-  }, [city, status]);
 
-  // press Enter key on input and send request
   useEffect(() => {
-    const cityInput = document.getElementById("cityInput");
-    if (cityInput)
-      cityInput.addEventListener("keyup", (event) => {
-        if (event.keyCode === 13) {
-          event.preventDefault();
-          onFetch();
-        }
-      });
-  });
+    const cityInput = inputRef.current;
+
+    function startRequestOnEnter(event) {
+      const enterKey = event.keyCode === 13;
+      enterKey && startRequest();
+    }
+
+    if (cityInput) {
+      cityInput.addEventListener("keyup", startRequestOnEnter);
+    }
+  }, []);
 
   // determine what to render
   const RenderBasedStatus = () => {
     if (status === "loading") {
-      return <Loading loadingText={"Loading..."} />;
+      return <Loading />;
     } else if (status === "error") {
       return <Styled.Heading bgColor="#7e252b">Error: {error}</Styled.Heading>;
     } else if (status === "success") {
@@ -80,77 +60,37 @@ const Home = () => {
     }
   };
 
-  const GeoLocation = () => {
-    return (
-      <Geolocation
-        render={({ getCurrentPosition, position }) => (
-          <Styled.Button
-            border_radius={"3px 0px 0px 3px"}
-            onClick={() => GetLetAndLon(getCurrentPosition, position)}
-          >
-            <HiLocationMarker
-              style={{ width: "30px", height: "30px", color: "#fff" }}
-            />
-          </Styled.Button>
-        )}
-      />
-    );
-  };
-
   const GetLetAndLon = (getCurrentPosition, pos) => {
     setLoadingGPS(true);
     RemoveInputValue();
     getCurrentPosition();
-    GetCity(pos.coords.latitude.toFixed(6), pos.coords.longitude.toFixed(6));
+    GetCity(
+      pos.coords.latitude.toFixed(6),
+      pos.coords.longitude.toFixed(6),
+      setCity,
+      startRequest
+    );
   };
 
   const RemoveInputValue = () => {
-    document.getElementById("cityInput").value = "";
-  };
-
-  const GetCity = (lat, lon) => {
-    axios
-      .get(
-        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&zoom=18`
-      )
-      .then((res) => {
-        console.log("lat lon: " + lat + " " + lon);
-        console.log("get city: " + res.data.address.city);
-        res.data.address.city !== null
-          ? setCity(res.data.address.city)
-          : setCity(res.data.address.county);
-        onFetch();
-      });
-  };
-
-  const SearchButton = () => {
-    return (
-      <Styled.Button
-        border_radius={"0px 3px 3px 0px"}
-        aria-label="search"
-        onClick={onFetch}
-      >
-        <BiSearchAlt2
-          style={{ width: "30px", height: "30px", color: "#fff" }}
-        />
-      </Styled.Button>
-    );
+    inputRef.current.value = "";
   };
 
   return (
     <Styled.Container bgImg={GetImageByKey(bgImg)}>
       <Styled.InputContainer>
-        <GeoLocation />
+        <GeoLocation GetLetAndLon={GetLetAndLon} />
         <Styled.Input
+          ref={inputRef}
           onChange={onChange}
           id="cityInput"
           type="text"
           placeholder="Enter a City"
         />
-        <SearchButton />
+        <SearchButton startRequest={startRequest} />
       </Styled.InputContainer>
 
-      {loadingGPS ? <Loading loadingText={"Getting your city..."} /> : ""}
+      {loadingGPS ? <Loading variant="GPS" /> : ""}
       <RenderBasedStatus />
     </Styled.Container>
   );

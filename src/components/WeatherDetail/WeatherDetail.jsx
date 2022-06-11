@@ -3,15 +3,15 @@ import * as Styled from "./WeatherDetail.styled";
 const WeatherDetail = ({ description, name, country, temp, icon }) => {
   const ImgAndDescription = () => {
     return (
-      <div>
+      <section>
         <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="" />
         <Styled.Paragraph>{description}</Styled.Paragraph>
-      </div>
+      </section>
     );
   };
   const WeatherInfo = () => {
     return (
-      <div>
+      <section>
         <Styled.CityName fontSize={35}>{name}</Styled.CityName>
         <Styled.Country>{country}</Styled.Country>
         <Styled.TemperatureContainer>
@@ -23,7 +23,7 @@ const WeatherDetail = ({ description, name, country, temp, icon }) => {
             <Styled.Celcius>&deg;C</Styled.Celcius>
           </Styled.CelciusContainer>
         </Styled.TemperatureContainer>
-      </div>
+      </section>
     );
   };
 
